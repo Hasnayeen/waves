@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app" x-data="app" class="min-h-screen grid place-content-center bg-indigo-900 text-white">
+      <main class="space-y-4 max-w-2xl">
+        <h1 class="text-5xl font-semibold">👋 Hi there, What's up!</h1>
+        <p class="text-lg">I'm collecting waves, so connect your wallet and send me a wave or say something really nice.</p>
+        <div class="space-x-4">
+          <button @click="wave(1)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 once</button>
+          <button @click="wave(2)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 twice</button>
+          <button @click="wave(3)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 thrice</button>
+        </div>
+        <div class="flex flex-col space-y-2">
+          <label for="message" class="sr-only">Message</label>
+          <input class="border rounded p-2" type="text" name="message" placeholder="This is awesome">
+        </div>
+        <button class="bg-purple-600 text-white text-lg font-semibold py-2 rounded shadow-md w-full">Connect Wallet</button>
+      </main>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

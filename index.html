@@ -5,23 +5,33 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css">
-    <title>Vite App</title>
+    <title>👋 Waves: to Hasnayeen</title>
   </head>
   <body>
-    <div id="app" x-data="app" class="min-h-screen grid place-content-center bg-indigo-900 text-white">
-      <main class="space-y-4 max-w-2xl">
+    <div id="app" x-data="app" class="min-h-screen grid justify-center bg-indigo-900 text-white">
+      <main class="space-y-4 max-w-2xl mt-24">
         <h1 class="text-5xl font-semibold">👋 Hi there, What's up!</h1>
-        <p class="text-lg">I'm collecting waves, so connect your wallet and send me a wave or say something really nice.</p>
-        <div class="space-x-4">
-          <button @click="wave(1)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 once</button>
-          <button @click="wave(2)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 twice</button>
-          <button @click="wave(3)" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md">👋 thrice</button>
-        </div>
+        <p class="text-lg">I'm collecting waves so connect your wallet, say something really nice and wave.</p>
+        <div class="text-lg">Total Waves: <span x-text="totalWaves" class="text-green-400 font-bold"></span></div>
         <div class="flex flex-col space-y-2">
           <label for="message" class="sr-only">Message</label>
-          <input class="border rounded p-2" type="text" name="message" placeholder="This is awesome">
+          <input x-model="message" class="border rounded p-2 text-indigo-700 font-semibold" type="text" name="message" placeholder="gmi or ngmi that is the question.">
         </div>
-        <button class="bg-purple-600 text-white text-lg font-semibold py-2 rounded shadow-md w-full">Connect Wallet</button>
+        <div class="">
+          <button @click="wave" class="bg-gray-900 text-white text-lg font-semibold px-6 py-2 rounded shadow-md w-full">👋 to Hasnayeen</button>
+        </div>
+        <template x-if="!currentAccount">
+          <button @click="connectWallet" class="bg-purple-600 text-white text-lg font-semibold py-2 rounded shadow-md w-full">Connect Wallet</button>
+        </template>
+        <template x-for="wave in waves">
+          <div class="grid grid-cols-6 gap-4 border-2 border-indigo-600 bg-indigo-800 font-semibold rounded-lg p-4">
+            <div class="col-span-1 text-xs break-words truncate" x-text="wave.address"></div>
+            <div class="col-span-5">
+              <div class="text-xs" x-text="wave.timestamp"></div>
+              <div class="text-xl font-bold" x-text="wave.message"></div>
+            </div>
+          </div>
+        </template>
       </main>
     </div>
     <script type="module" src="/main.js"></script>

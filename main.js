@@ -6,7 +6,7 @@ window.Alpine = Alpine
 
 Alpine.data('app', () => ({
   currentAccount: null,
-  contractAddress: '0xeF6f2742d10bE356fDB6b18FDAC7525B56a49Ef6',
+  contractAddress: '0xdaB02c2Aad1351cdbc155E5d5FF8E80edd6A61DE',
   wavesContract: null,
   totalWaves: 0,
   waves: [],
@@ -64,7 +64,7 @@ Alpine.data('app', () => ({
       if (ethereum) {
         this.totalWaves = await this.wavesContract.getTotalWaves();
         console.log("Retrieved total wave count...", this.totalWaves.toNumber());
-        const waveTxn = await this.wavesContract.wave(this.currentAccount, this.message);
+        const waveTxn = await this.wavesContract.wave(this.currentAccount, this.message, { gasLimit: 300000 });
         console.log("Mining...", waveTxn.hash);
         this.message = '';
 
@@ -72,7 +72,6 @@ Alpine.data('app', () => ({
         console.log("Mined -- ", waveTxn.hash);
 
         this.totalWaves = await this.wavesContract.getTotalWaves();
-        await this.getAllWaves();
         console.log("Retrieved total wave count...", this.totalWaves.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -92,6 +91,16 @@ Alpine.data('app', () => ({
             address: wave.waver,
             timestamp: new Date(wave.timestamp * 1000).toLocaleString('en-US', { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }),
             message: wave.message
+          });
+        });
+
+        this.wavesContract.on("NewWave", (from, timestamp, message) => {
+          console.log("NewWave", from, timestamp, message);
+
+          this.waves.push({
+            address: from,
+            timestamp: new Date(timestamp * 1000),
+            message: message
           });
         });
       } else {
